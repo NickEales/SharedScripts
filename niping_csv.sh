@@ -5,8 +5,11 @@
 # https://techcommunity.microsoft.com/t5/running-sap-applications-on-the/collecting-and-displaying-niping-network-latency-measurements/ba-p/1833979
 #
 # reference: https://techcommunity.microsoft.com/t5/running-sap-applications-on-the/niping-8211-a-useful-tool-from-sap/ba-p/367109
+#
+# niping_csv.sh HOSTNAME PORT BATCHSIZE LOOPS VALUENAME
+#
 
-#first parameter is the remote host to ping - it must be running the niping server. Exit if not provided.
+
 if [[ -z $1 ]];
 then
     echo "no target specified"
@@ -15,33 +18,42 @@ else
     TARGET="$1"
 fi
 
-# Check for presence of second parameter and assign it to the variable, otherwise use a default. This is the size of data to use in each ping loop.
+#Check for presence of second parameter and assign it to the variable, otherwise use a default.
 if [[ -z $2 ]];
 then
-    SIZE=10
+    PORTNUMBER=3298
 else
-    SIZE=$2
+    PORTNUMBER=$2
 fi
+
 
 #Check for presence of third parameter and assign it to the variable, otherwise use a default.
 if [[ -z $3 ]];
 then
-    LOOPS=1
+    SIZE=10
 else
-    LOOPS=$3
+    SIZE=$3
 fi
 
 #Check for presence of fourth parameter and assign it to the variable, otherwise use a default.
 if [[ -z $4 ]];
 then
-    VALUENAME="avg"
+    LOOPS=1
 else
-    VALUENAME=$4
+    LOOPS=$4
 fi
 
-#echo "niping -c -H $TARGET -B $SIZE -L $LOOPS  -D 15 | tail -n 8  | head -n 7 | grep $VALUENAME"
+#Check for presence of fifth parameter and assign it to the variable, otherwise use a default.
+if [[ -z $5 ]];
+then
+    VALUENAME="avg"
+else
+    VALUENAME=$5
+fi
 
-./niping -c -H $TARGET -B $SIZE -L $LOOPS  -D 15 | tail -n 8  | head -n 7 | grep $VALUENAME | awk -v target_var="$TARGET" '
+echo "niping -c -H $TARGET -B $SIZE -L $LOOPS  -D 15 | tail -n 8  | head -n 7 | grep $VALUENAME"
+
+./niping -c -H $TARGET -S $PORTNUMBER -B $SIZE -L $LOOPS  -D 15 | tail -n 8  | head -n 7 | grep $VALUENAME | awk -v target_var="$TARGET" '
 {
     for (i=1; i<=NF; i++)  {
         a[NR,i] = $i
