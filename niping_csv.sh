@@ -1,6 +1,11 @@
 #!/bin/bash
 # set -x
 
+# This Sample Code is provided for illustration only and is not intended to be used in a production environment.  THIS SAMPLE 
+# CODE AND ANY RELATED INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING 
+# BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE. 
+
+
 # This script is intended to provide additional options to ths sample scripts provided here:
 # https://techcommunity.microsoft.com/t5/running-sap-applications-on-the/collecting-and-displaying-niping-network-latency-measurements/ba-p/1833979
 #
@@ -8,7 +13,6 @@
 #
 # niping_csv.sh HOSTNAME PORT BATCHSIZE LOOPS VALUENAME
 #
-
 
 if [[ -z $1 ]];
 then
@@ -51,7 +55,7 @@ else
     VALUENAME=$5
 fi
 
-echo "niping -c -H $TARGET -B $SIZE -L $LOOPS  -D 15 | tail -n 8  | head -n 7 | grep $VALUENAME"
+# echo "niping -c -H $TARGET -B $SIZE -L $LOOPS  -D 15 | tail -n 8  | head -n 7 | grep $VALUENAME"
 
 ./niping -c -H $TARGET -S $PORTNUMBER -B $SIZE -L $LOOPS  -D 15 | tail -n 8  | head -n 7 | grep $VALUENAME | awk -v target_var="$TARGET" '
 {
