@@ -55,9 +55,9 @@ else
     VALUENAME=$5
 fi
 
-# echo "niping -c -H $TARGET -B $SIZE -L $LOOPS  -D 15 | tail -n 8  | head -n 7 | grep $VALUENAME"
+# echo "niping -c -H $TARGET -B $SIZE -L $LOOPS | tail -n 8  | head -n 7 | grep $VALUENAME"
 
-./niping -c -H $TARGET -S $PORTNUMBER -B $SIZE -L $LOOPS  -D 15 | tail -n 8  | head -n 7 | grep $VALUENAME | awk -v target_var="$TARGET" '
+./niping -c -H $TARGET -S $PORTNUMBER -B $SIZE -L $LOOPS | tail -n 8  | head -n 7 | grep $VALUENAME | awk -v target_var="$TARGET" '
 {
     for (i=1; i<=NF; i++)  {
         a[NR,i] = $i
