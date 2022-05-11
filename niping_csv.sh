@@ -33,5 +33,5 @@ do
     done
 done
 
-#echo "target,RTT(ms),TP(kB/s)"
-#awk -F',' '{target=$1;sumRTT+=$2;sumTP+=$3; ++n} END { print target","sumRTT/n","sumTP/n }' < ${tmpfilepath}
+echo "target,RTT(ms),TP(kB/s)"
+awk -F',' '{target=$1;sumRTT+=$2;sumTP+=$3; ++n} END { print target","sumRTT/n","sumTP/n }' < ${tmpfilepath}
