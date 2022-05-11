@@ -15,10 +15,11 @@ serversToPing=( "remoteServerName1" )
 port=3298
 nipingpath="./niping"
 virtualhostname=$(curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/compute/name?api-version=2017-08-01&format=text")
-tmpfilepath="./nipingreport/${virtualhostname}.csv"
 
+echo "target,RTT(ms),TP(kB/s)"
 for nipingserver in ${serversToPing[*]};
 do
+    tmpfilepath="./nipingreport/${virtualhostname}-$($nipingserver).csv"
     countbegin=1
     countend=10
     while [[ ${countbegin} -le ${countend} ]];
@@ -31,7 +32,6 @@ do
         echo "$nipingserver,${RTT},${TP}" >> ${tmpfilepath}
         (( countbegin++ ))
     done
+    awk -F',' '{target=$1;sumRTT+=$2;sumTP+=$3; ++n} END { print target","sumRTT/n","sumTP/n }' < ${tmpfilepath}
 done
 
-echo "target,RTT(ms),TP(kB/s)"
-awk -F',' '{target=$1;sumRTT+=$2;sumTP+=$3; ++n} END { print target","sumRTT/n","sumTP/n }' < ${tmpfilepath}
