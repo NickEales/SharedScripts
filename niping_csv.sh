@@ -19,7 +19,7 @@ virtualhostname=$(curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254
 echo "target,RTT(ms),TP(kB/s)"
 for nipingserver in ${serversToPing[*]};
 do
-    tmpfilepath="./nipingreport/${virtualhostname}-$($nipingserver).csv"
+    tmpfilepath="./nipingreport/${virtualhostname}-$nipingserver.csv"
     countbegin=1
     countend=10
     while [[ ${countbegin} -le ${countend} ]];
