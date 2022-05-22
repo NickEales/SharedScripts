@@ -11,7 +11,7 @@
 #
 #!/usr/bin/bash
 
-serversToPing=( "remoteServerName1" )
+serversToPing=( "remoteServerName1", "remoteServerName2" )
 port=3298
 nipingpath="./niping"
 virtualhostname=$(curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/compute/name?api-version=2017-08-01&format=text")
