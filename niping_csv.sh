@@ -9,7 +9,6 @@
 #
 # niping_csv.sh
 #
-#!/usr/bin/bash
 
 serversToPing=( "remoteServerName1" "remoteServerName2" )
 port=3298
