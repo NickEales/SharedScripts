@@ -14,6 +14,8 @@
 serversToPing=( "remoteServerName1" "remoteServerName2" )
 port=3298
 nipingpath="./niping"
+
+#detect local machine name from Azure Metadata service.
 virtualhostname=$(curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/compute/name?api-version=2017-08-01&format=text")
 
 echo "target,RTT(ms),TP(kB/s)"
